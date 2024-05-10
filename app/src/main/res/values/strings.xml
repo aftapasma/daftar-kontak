@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Daftar Kontak</string>
     <string name="tambah_kontak">Tambah Kontak</string>
-    <string name="list_kosong">Belum ada data</string>
+    <string name="list_kosong">Belum ada data kontak</string>
+    <string name="kembali">Kembali</string>
+    <string name="edit_kontak">Ubah kontak</string>
+    <string name="invalid">Nama dan nomor ponsel tidak boleh kosong</string>
+    <string name="simpan">Simpan</string>
+    <string name="lainnya">Opsi lainnya</string>
+    <string name="hapus">Hapus Kontak</string>
+    <string name="nama">Nama</string>
+    <string name="nomor">Nomor Ponsel</string>
 </resources>
