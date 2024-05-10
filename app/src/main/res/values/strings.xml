@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Daftar Kontak</string>
+    <string name="tambah_kontak">Tambah Kontak</string>
+    <string name="list_kosong">Belum ada data</string>
 </resources>
