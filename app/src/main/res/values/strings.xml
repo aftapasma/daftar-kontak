@@ -10,4 +10,10 @@
     <string name="hapus">Hapus Kontak</string>
     <string name="nama">Nama</string>
     <string name="nomor">Nomor Ponsel</string>
+    <string name="grid">Tampilan grid</string>
+    <string name="list">Tampilan list</string>
+    <string name="pesan_hapus">Hapus kontak</string>
+    <string name="tombol_hapus">Hapus</string>
+    <string name="tombol_batal">Batal\n</string>
+    <string name="input_invalid">Tidak boleh kosong!</string>
 </resources>

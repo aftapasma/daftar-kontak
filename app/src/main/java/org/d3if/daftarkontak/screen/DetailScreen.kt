@@ -70,9 +70,11 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
     val viewModel: DetailViewModel = viewModel(factory = factory)
 
     var nama by remember { mutableStateOf("") }
-    var nomor by remember { mutableStateOf("") }
 
+    var nomor by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf("") }
+
+    var showDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(true) {
 
@@ -112,7 +114,6 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
                             Toast.makeText(context, R.string.invalid, Toast.LENGTH_LONG).show()
                             return@IconButton
                         }
-
                         if (id == null) {
                             viewModel.insert(nama, nomor, gender)
                         } else {
@@ -127,7 +128,11 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
                         )
                     }
                     if (id != null) {
-                        DeleteAction {
+                        DeleteAction { showDialog = true }
+                        DisplayAlertDialog(
+                            openDialog = showDialog,
+                            onDismissRequest = { showDialog = false }) {
+                            showDialog = false
                             viewModel.delete(id)
                             navController.popBackStack()
                         }
@@ -196,6 +201,7 @@ fun FormMahasiswa(
             value = name,
             onValueChange = { onTitleChange(it) },
             label = { Text(text = stringResource(R.string.nama)) },
+
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.Words,
@@ -254,6 +260,8 @@ fun GenderOption(label: String, isSelected: Boolean = false, modifier: Modifier,
         )
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
