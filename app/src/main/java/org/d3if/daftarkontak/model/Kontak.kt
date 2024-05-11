@@ -9,5 +9,5 @@ data class Kontak(
     val id: Long = 0L,
     val nama: String,
     val nomor: String,
-    val gender: String
+    val favorit: String
 )

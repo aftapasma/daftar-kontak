@@ -15,7 +15,7 @@ interface KontakDao {
     @Update
     suspend fun update(kontak: Kontak)
 
-    @Query("SELECT * FROM kontak ORDER BY nama ASC, nomor ASC")
+    @Query("SELECT * FROM kontak ORDER BY favorit ASC, nama ASC")
     fun getKontak(): Flow<List<Kontak>>
 
     @Query("SELECT * FROM kontak WHERE id = :id")

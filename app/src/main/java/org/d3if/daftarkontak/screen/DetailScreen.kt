@@ -58,8 +58,8 @@ import org.d3if.daftarkontak.util.ViewModelFactory
 const val KEY_ID_KONTAK = "idKONTAK"
 
 val radioOptions = listOf(
-    "LAKI - LAKI",
-    "PEREMPUAN",
+    "Tidak Favorite",
+    "Favorite",
 )
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -72,7 +72,7 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
     var nama by remember { mutableStateOf("") }
 
     var nomor by remember { mutableStateOf("") }
-    var gender by remember { mutableStateOf("") }
+    var favorit by remember { mutableStateOf(radioOptions[0]) }
 
     var showDialog by remember { mutableStateOf(false) }
 
@@ -82,7 +82,7 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
         val data = viewModel.getKontak(id) ?: return@LaunchedEffect
         nama = data.nama
         nomor = data.nomor
-        gender = data.gender
+        favorit = data.favorit
     }
 
 
@@ -115,9 +115,9 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
                             return@IconButton
                         }
                         if (id == null) {
-                            viewModel.insert(nama, nomor, gender)
+                            viewModel.insert(nama, nomor, favorit)
                         } else {
-                            viewModel.update(id, nama, nomor, gender)
+                            viewModel.update(id, nama, nomor, favorit)
                         }
                         navController.popBackStack()
                     }) {
@@ -141,13 +141,13 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
             )
         }
     ) { padding ->
-        FormMahasiswa(
+        FormKontak(
             name = nama,
             onTitleChange = { nama = it },
             number = nomor,
             onNumberChange = { nomor = it },
-            gender = gender,
-            onGenderChange = { gender = it },
+            favorit = favorit,
+            onFavoritChange = { favorit = it },
             modifier = Modifier.padding(padding)
         )
 
@@ -182,10 +182,10 @@ fun DeleteAction(delete: () -> Unit) {
 }
 
 @Composable
-fun FormMahasiswa(
+fun FormKontak(
     name: String, onTitleChange: (String) -> Unit,
     number: String, onNumberChange: (String) -> Unit,
-    gender: String, onGenderChange: (String) -> Unit,
+    favorit: String, onFavoritChange: (String) -> Unit,
 
     modifier: Modifier
 ) {
@@ -227,17 +227,17 @@ fun FormMahasiswa(
                 )
         ) {
             radioOptions.forEach { text ->
-                GenderOption(
+                FavoritOption(
                     label = text,
-                    isSelected = gender == text,
+                    isSelected = favorit == text,
                     modifier = Modifier
                         .selectable(
-                            selected = gender == text,
-                            onClick = { onGenderChange(text) },
+                            selected = favorit == text,
+                            onClick = { onFavoritChange(text) },
                             role = Role.RadioButton
                         )
                         .weight(1f)
-                        .padding(16.dp), onGenderChange
+                        .padding(16.dp), onFavoritChange
                 )
 
             }
@@ -247,12 +247,12 @@ fun FormMahasiswa(
 }
 
 @Composable
-fun GenderOption(label: String, isSelected: Boolean = false, modifier: Modifier, onGenderChange: (String) -> Unit) {
+fun FavoritOption(label: String, isSelected: Boolean = false, modifier: Modifier, onFavoritChange: (String) -> Unit) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        RadioButton(selected = isSelected, onClick = {onGenderChange(label)})
+        RadioButton(selected = isSelected, onClick = {onFavoritChange(label)})
         Text(
             text = label,
             style = MaterialTheme.typography.bodyLarge,

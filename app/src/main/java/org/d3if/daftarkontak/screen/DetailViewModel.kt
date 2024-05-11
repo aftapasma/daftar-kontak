@@ -11,11 +11,11 @@ class DetailViewModel(private val dao: KontakDao) : ViewModel() {
 
 //    private val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
 
-    fun insert(nama: String, nim: String, kelas: String) {
+    fun insert(nama: String, nim: String, favorit: String) {
         val mahasiswa = Kontak(
             nama = nama,
             nomor   = nim,
-            gender = kelas
+            favorit = favorit
         )
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -27,12 +27,12 @@ class DetailViewModel(private val dao: KontakDao) : ViewModel() {
         return dao.getKontakById(id)
     }
 
-    fun update(id: Long, nama: String, nomor: String, gender: String) {
+    fun update(id: Long, nama: String, nomor: String, favorit: String) {
         val kontak = Kontak(
             id      = id,
             nama = nama,
             nomor   = nomor,
-            gender = gender
+            favorit = favorit
         )
 
         viewModelScope.launch(Dispatchers.IO) {

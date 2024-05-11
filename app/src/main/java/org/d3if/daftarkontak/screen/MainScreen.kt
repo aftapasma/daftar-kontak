@@ -173,7 +173,7 @@ fun ListItem(kontak: Kontak, onclick: () -> Unit) {
             fontWeight = FontWeight.Bold
         )
         Text(text = kontak.nomor, maxLines = 1)
-        Text(text = kontak.gender, maxLines = 1)
+        Text(text = kontak.favorit, maxLines = 1)
     }
 }
 
@@ -199,7 +199,7 @@ fun GridItem(kontak: Kontak, onClick: () -> Unit) {
                 fontWeight = FontWeight.Bold
             )
             Text(text = kontak.nomor)
-            Text(text = kontak.gender)
+            Text(text = kontak.favorit)
         }
     }
 }

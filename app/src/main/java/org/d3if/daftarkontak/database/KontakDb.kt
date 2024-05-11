@@ -24,7 +24,7 @@ abstract class KontakDb : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         KontakDb::class.java,
-                        "mahasiswa.db"
+                        "kontak.db"
                     ).build()
                     INSTANCE = instance
                 }
