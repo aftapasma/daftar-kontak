@@ -11,14 +11,14 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.d3if0019.daftarhotel.model.Hotel
+import org.d3if0019.daftarhotel.model.Barang
 import org.d3if0019.daftarhotel.network.ApiStatus
-import org.d3if0019.daftarhotel.network.HotelApi
+import org.d3if0019.daftarhotel.network.BarangApi
 import java.io.ByteArrayOutputStream
 
 class MainViewModel : ViewModel() {
 
-    var data = mutableStateOf(emptyList<Hotel>())
+    var data = mutableStateOf(emptyList<Barang>())
         private set
 
     var status = MutableStateFlow(ApiStatus.LOADING)
@@ -31,7 +31,7 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             status.value = ApiStatus.LOADING
             try {
-                data.value = HotelApi.service.getHotel(userId)
+                data.value = BarangApi.service.getBarang(userId)
                 status.value = ApiStatus.SUCCESS
             } catch (e: Exception) {
                 Log.d("MainViewModel", "Failure: ${e.message}")
@@ -43,7 +43,7 @@ class MainViewModel : ViewModel() {
     fun saveData(userId: String, namaHotel: String, handphone: String, bitmap: Bitmap) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result = HotelApi.service.postHotel(
+                val result = BarangApi.service.postBarang(
                     userId,
                     namaHotel.toRequestBody("text/plain".toMediaTypeOrNull()),
                     handphone.toRequestBody("text/plain".toMediaTypeOrNull()),
@@ -73,7 +73,7 @@ class MainViewModel : ViewModel() {
     fun deleteHotel(userId: String, hotelId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result = HotelApi.service.deleteHotel(userId, hotelId)
+                val result = BarangApi.service.deleteBarang(userId, hotelId)
                 if (result.status == "success") {
                     retrieveData(userId)
                 } else {

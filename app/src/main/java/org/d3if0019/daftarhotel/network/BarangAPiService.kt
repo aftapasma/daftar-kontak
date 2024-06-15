@@ -1,10 +1,10 @@
 package org.d3if0019.daftarhotel.network
 
-import org.d3if0019.daftarhotel.model.Hotel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.d3if0019.daftarhotel.model.Barang
 import org.d3if0019.daftarhotel.model.OpStatus
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -27,15 +27,15 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
-interface HotelApiService {
+interface BarangApiService {
     @GET("api_afta.php")
-    suspend fun getHotel(
+    suspend fun getBarang(
         @Header("Authorization") userId: String
-    ): List<Hotel>
+    ): List<Barang>
 
     @Multipart
     @POST("api_afta.php")
-    suspend fun postHotel(
+    suspend fun postBarang(
         @Header("Authorization") userId: String,
         @Part("namaHotel") namaHotel: RequestBody,
         @Part("handphone") handphone: RequestBody,
@@ -43,18 +43,18 @@ interface HotelApiService {
     ): OpStatus
 
     @DELETE("api_afta.php")
-    suspend fun deleteHotel(
+    suspend fun deleteBarang(
         @Header("Authorization") userId: String,
         @Query("id") id: String
     ): OpStatus
 }
 
-object HotelApi {
-    val service: HotelApiService by lazy {
-        retrofit.create(HotelApiService::class.java)
+object BarangApi {
+    val service: BarangApiService by lazy {
+        retrofit.create(BarangApiService::class.java)
     }
 
-    fun getHotelUrl(imageId: String): String {
+    fun getBarangUrl(imageId: String): String {
         return "${BASE_URL}image.php?id=$imageId"
     }
 }

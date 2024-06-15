@@ -78,10 +78,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.d3if0019.daftarhotel.BuildConfig
 import org.d3if0019.daftarhotel.R
-import org.d3if0019.daftarhotel.model.Hotel
+import org.d3if0019.daftarhotel.model.Barang
 import org.d3if0019.daftarhotel.model.User
 import org.d3if0019.daftarhotel.network.ApiStatus
-import org.d3if0019.daftarhotel.network.HotelApi
+import org.d3if0019.daftarhotel.network.BarangApi
 import org.d3if0019.daftarhotel.network.UserDataStore
 import org.d3if0019.daftarhotel.ui.theme.DaftarKontakTheme
 
@@ -98,12 +98,12 @@ fun MainScreen() {
     var showDialog by remember {
         mutableStateOf(false)
     }
-    var showHotelDialog by remember { mutableStateOf(false) }
+    var showBarangDialog by remember { mutableStateOf(false) }
 
     var bitmap: Bitmap? by remember { mutableStateOf(null) }
     val launcher = rememberLauncherForActivityResult(CropImageContract()) {
         bitmap = getCroppedImage(context.contentResolver, it)
-        if (bitmap != null) showHotelDialog = true}
+        if (bitmap != null) showBarangDialog = true}
 
     Scaffold(
         topBar = {
@@ -160,12 +160,12 @@ fun MainScreen() {
                 showDialog = false
             }
         }
-        if (showHotelDialog) {
-            HewanDialog(
+        if (showBarangDialog) {
+            barangDialog(
                 bitmap = bitmap,
-                onDismissRequest = { showHotelDialog = false }) { namaHotel, handphone ->
+                onDismissRequest = { showBarangDialog = false }) { namaHotel, handphone ->
                 viewModel.saveData(user.email, namaHotel, handphone, bitmap!!)
-                showHotelDialog = false
+                showBarangDialog = false
             }
         }
         if (errorMessage != null) {
@@ -203,7 +203,7 @@ fun ScreenContent(viewModel: MainViewModel, userId: String, modifier: Modifier) 
                 columns = GridCells.Fixed(2),
                 contentPadding = PaddingValues(bottom = 80.dp)
             ) {
-                items(data) { ListItem(hotel = it, onDelete = {hotelId ->
+                items(data) { ListItem(barang = it, onDelete = { hotelId ->
                     viewModel.deleteHotel(userId, hotelId)
                 }) }
             }
@@ -230,7 +230,7 @@ fun ScreenContent(viewModel: MainViewModel, userId: String, modifier: Modifier) 
 }
 
 @Composable
-fun ListItem(hotel: Hotel, onDelete: (String) -> Unit) {
+fun ListItem(barang: Barang, onDelete: (String) -> Unit) {
     var deleteDialog by remember {
         mutableStateOf(false)
     }
@@ -242,10 +242,10 @@ fun ListItem(hotel: Hotel, onDelete: (String) -> Unit) {
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(HotelApi.getHotelUrl(hotel.imageId))
+                .data(BarangApi.getBarangUrl(barang.imageId))
                 .crossfade(true)
                 .build(),
-            contentDescription = stringResource(R.string.gambar, hotel.namaHotel),
+            contentDescription = stringResource(R.string.gambar, barang.namaHotel),
             contentScale = ContentScale.Crop,
             placeholder = painterResource(id = R.drawable.loading_img),
             error = painterResource(id = R.drawable.broken_img),
@@ -271,12 +271,12 @@ fun ListItem(hotel: Hotel, onDelete: (String) -> Unit) {
                         .padding(4.dp)
                 ) {
                     Text(
-                        text = hotel.namaHotel,
+                        text = barang.namaHotel,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
                     )
                     Text(
-                        text = hotel.handphone,
+                        text = barang.handphone,
                         fontStyle = FontStyle.Italic,
                         fontSize = 14.sp,
                         color = Color.White
@@ -297,7 +297,7 @@ fun ListItem(hotel: Hotel, onDelete: (String) -> Unit) {
                     onDismissRequest = { deleteDialog = false },
                 ) {
                     deleteDialog = false
-                    onDelete(hotel.id)
+                    onDelete(barang.id)
                 }
             }
 

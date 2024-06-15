@@ -40,7 +40,7 @@ import org.d3if0019.daftarhotel.ui.theme.DaftarKontakTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HewanDialog(
+fun barangDialog(
     bitmap: Bitmap?,
     onDismissRequest: () -> Unit,
     onConfirmation: (String, String) -> Unit
@@ -153,7 +153,7 @@ fun HewanDialog(
 @Composable
 fun AddDialogPreview() {
     DaftarKontakTheme {
-        HewanDialog(
+        barangDialog(
             bitmap = null,
             onDismissRequest = {},
             onConfirmation = { _, _ -> }
