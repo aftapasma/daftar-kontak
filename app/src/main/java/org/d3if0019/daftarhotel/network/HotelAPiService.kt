@@ -21,7 +21,7 @@ private val retrofit = Retrofit.Builder()
 
 interface HotelApiService {
     @GET("static-api.json")
-    suspend fun getHewan(): List<Hotel>
+    suspend fun getHotel(): List<Hotel>
 }
 
 object HotelApi {
@@ -33,3 +33,5 @@ object HotelApi {
         return "$BASE_URL$imageId.jpg"
     }
 }
+
+enum class ApiStatus { LOADING, SUCCESS, FAILED }
