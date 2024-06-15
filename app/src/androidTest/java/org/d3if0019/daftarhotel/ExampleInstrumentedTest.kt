@@ -1,4 +1,4 @@
-package org.d3if.daftarkontak
+package org.d3if0019.daftarhotel
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

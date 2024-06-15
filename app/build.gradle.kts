@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "org.d3if.daftarkontak"
+    namespace = "org.d3if0019.daftarhotel"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "org.d3if.daftarkontak"
+        applicationId = "org.d3if0019.daftarhotel"
         minSdk = 21
         targetSdk = 34
         versionCode = 1
@@ -59,6 +59,13 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.retrofit)
+    implementation(libs.converter.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.coil.compose)
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

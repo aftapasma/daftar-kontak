@@ -1,4 +1,4 @@
-package org.d3if.daftarkontak.ui.theme
+package org.d3if0019.daftarhotel.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
