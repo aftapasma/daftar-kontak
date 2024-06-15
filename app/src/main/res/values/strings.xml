@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Info Hotel</string>
+    <string name="app_name">List Barang Grosir</string>
     <string name="gambar">Gambar</string>
     <string name="error">Gagal memuat data.. Koneksi hilang</string>
     <string name="try_again">Coba lagi</string>
@@ -9,8 +9,8 @@
     <string name="pesan_hapus">Apakah Kamu Yakin Ingin Menghapus ini?</string>
     <string name="hapus">Hapus</string>
     <string name="batal">Batal</string>
-    <string name="nama_hotel">Nama Hotel</string>
-    <string name="handphone">Alamat</string>
+    <string name="nama_hotel">Nama Barang</string>
+    <string name="kategori">Kategori barang</string>
     <string name="simpan">Simpan</string>
-    <string name="tambah_hotel">Tambah Hotel</string>
+    <string name="tambah_barang">Tambah Barang</string>
 </resources>

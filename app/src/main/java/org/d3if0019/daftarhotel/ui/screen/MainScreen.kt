@@ -145,7 +145,7 @@ fun MainScreen() {
             }) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = stringResource(id = R.string.tambah_hotel)
+                    contentDescription = stringResource(id = R.string.tambah_barang)
                 )
             }
         }
@@ -276,7 +276,7 @@ fun ListItem(hotel: Hotel, onDelete: (String) -> Unit) {
                         color = Color.White
                     )
                     Text(
-                        text = hotel.namaHotel,
+                        text = hotel.handphone,
                         fontStyle = FontStyle.Italic,
                         fontSize = 14.sp,
                         color = Color.White

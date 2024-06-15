@@ -6,15 +6,21 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,14 +38,20 @@ import androidx.compose.ui.window.Dialog
 import org.d3if0019.daftarhotel.R
 import org.d3if0019.daftarhotel.ui.theme.DaftarKontakTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HewanDialog(
     bitmap: Bitmap?,
     onDismissRequest: () -> Unit,
     onConfirmation: (String, String) -> Unit
 ) {
+
+    val category = arrayOf("Jajan", "Pemanis", "Bahan Pokok", "Minuman", "Kalengan")
+    var expanded by remember { mutableStateOf(false) }
+    var selectedText by remember { mutableStateOf(category[0]) }
+
     var namaHotel by remember { mutableStateOf("") }
-    var handphone by remember { mutableStateOf("") }
+//    var handphone by remember { mutableStateOf(category[0]) }
 
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Card(
@@ -68,17 +80,49 @@ fun HewanDialog(
                     ),
                     modifier = Modifier.padding(top = 8.dp)
                 )
-                OutlinedTextField(
-                    value = handphone,
-                    onValueChange = { handphone = it },
-                    label = { Text(text = stringResource(id = R.string.handphone)) },
-                    maxLines = 1,
-                    keyboardOptions = KeyboardOptions(
-                        capitalization = KeyboardCapitalization.Sentences,
-                        imeAction = ImeAction.Done
-                    ),
-                    modifier = Modifier.padding(top = 8.dp)
-                )
+//                OutlinedTextField(
+//                    value = handphone,
+//                    onValueChange = { handphone = it },
+//                    label = { Text(text = stringResource(id = R.string.handphone)) },
+//                    maxLines = 1,
+//                    keyboardOptions = KeyboardOptions(
+//                        capitalization = KeyboardCapitalization.Sentences,
+//                        imeAction = ImeAction.Done
+//                    ),
+//                    modifier = Modifier.padding(top = 8.dp)
+//                )
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text(text = stringResource(id = R.string.kategori))
+                ExposedDropdownMenuBox(
+                    expanded = expanded,
+                    onExpandedChange = {
+                        expanded = !expanded
+                    }
+                ) {
+                    TextField(
+                        value = selectedText,
+                        onValueChange = {selectedText =it},
+                        readOnly = true,
+                        singleLine = true,
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                        modifier = Modifier.menuAnchor()
+                    )
+
+                    ExposedDropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        category.forEach { item ->
+                            DropdownMenuItem(
+                                text = { Text(text = item) },
+                                onClick = {
+                                    selectedText = item
+                                    expanded = false
+                                }
+                            )
+                        }
+                    }
+                }
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -92,8 +136,8 @@ fun HewanDialog(
                         Text(text = stringResource(R.string.batal))
                     }
                     OutlinedButton(
-                        onClick = { onConfirmation(namaHotel, handphone) },
-                        enabled = namaHotel.isNotEmpty() && handphone.isNotEmpty(),
+                        onClick = { onConfirmation(namaHotel, selectedText) },
+                        enabled = namaHotel.isNotEmpty() && selectedText.isNotEmpty(),
                         modifier = Modifier.padding(8.dp)
                     ) {
                         Text(text = stringResource(R.string.simpan))
